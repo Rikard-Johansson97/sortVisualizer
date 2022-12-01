@@ -10,30 +10,36 @@
     <body>
         <header>
             <nav>
-                <button class="btn">Gen</button>
+                <button class="btn" id="random-btn">Gen</button>
                 <div>
                     <label for="array-size" class="label-text">Array</label>
-                    <input type="range" min="1" max="100" id="array-size" />
+                    <input
+                        type="range"
+                        min="1"
+                        max="100"
+                        value="50"
+                        id="array-size" />
+                    <span class="label-text" id="arr-len">50</span>
                 </div>
                 <div>
                     <label for="" class="label-text">Speed</label>
-                    <input type="range" min="1" max="100" />
+                    <input
+                        id="speed"
+                        type="range"
+                        value="50"
+                        min="1"
+                        max="100" />
+                    <span class="label-text" id="speed-time">50ms</span>
                 </div>
                 <button class="btn">Merge</button>
-                <button class="btn">Bubble</button>
+                <button class="btn" id="bubble">Bubble</button>
                 <button class="btn">Quick</button>
-                <button class="btn">Selection Sort</button>
+                <button class="btn" id="selection">Selection Sort</button>
             </nav>
         </header>
         <main>
-            <div class="stacks-container">
-                <p class="stack" id="stack"></p>
-                <p class="stack" id="stack"></p>
-                <p class="stack" id="stack"></p>
-                <p class="stack" id="stack"></p>
-                <p class="stack" id="stack"></p>
-                <p class="stack" id="stack"></p>
-            </div>
+            <div class="stacks-container"></div>
         </main>
     </body>
+    <script src="/script.js"></script>
 </html>

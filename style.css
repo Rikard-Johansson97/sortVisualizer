@@ -49,11 +49,12 @@ input[type=range]::-webkit-slider-thumb {
 }
 nav{
     width: 100%;
-    height: 10vh;
+    height: 14vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: #042326;
+    box-shadow: 0 0 13px rgb(29,115,115);
     
 }
 nav div{
@@ -62,24 +63,23 @@ nav div{
     text-align: center;
 }
 
-
-  
-
 /* MAIN */
 .stacks-container{
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 90vh;
+    height: 86vh;
     width: 100vw;
 }
 
 .stacks-container p{
     margin: 2px;
-    width: 15px;
-    height: 80%;
+    width: 100%;
     border: #0A3A40 solid 1px;
-    background-color: #1D7373;
+    background: rgb(29,115,115);
+    background: linear-gradient(180deg, rgba(29,115,115,1) 9%, rgba(0,0,0,0.2) 100%);
+    margin-bottom: 5px;
+    border-top: rgb(29,115,115) solid 2px;
 }
 
   
