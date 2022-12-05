@@ -77,9 +77,8 @@ nav div{
     width: 100%;
     border: #0A3A40 solid 1px;
     background: rgb(29,115,115);
-    background: linear-gradient(180deg, rgba(29,115,115,1) 9%, rgba(0,0,0,0.2) 100%);
+    background: linear-gradient(180deg, rgba(29,115,115,1) 9%, rgba(0,0,0,0.4) 100%);
     margin-bottom: 5px;
-    border-top: rgb(29,115,115) solid 2px;
 }
 
-  
+

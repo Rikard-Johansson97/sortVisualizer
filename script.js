@@ -31,13 +31,20 @@ window.onload = function () {
         speedLabel.textContent = e.target.value + "ms";
         delay = e.target.value;
     });
-
-    const displayNumbers = (arr) => {
+    const displayNumbers = (arr, currentIndex, sortedIndex) => {
         stacksContainer.textContent = "";
         arr.forEach((number) => {
             stack = document.createElement("p");
             stacksContainer.appendChild(stack);
+            stack.classList.add("sorted");
             stack.style.height = `${number}%`;
+            if (number === sortedIndex) {
+                stack.style.background = "red";
+                console.log(currentIndex + "aa");
+            }
+            if (currentIndex === number) {
+                stack.style.background = "white";
+            }
         });
     };
 
@@ -55,9 +62,17 @@ window.onload = function () {
         displayNumbers(arraySize);
     };
 
-    function Sleep(ms) {
+    function Sleep(ms, callback) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
+
+    const displayGreen = () => {
+        sortedStacks = document.querySelectorAll(".sorted");
+        console.log(sortedStacks);
+        sortedStacks.forEach((item) => {
+            item.style.background = "green";
+        });
+    };
 
     createArray(arraySizeInput.value);
 
@@ -70,14 +85,15 @@ window.onload = function () {
                     arraySize[j] = arraySize[j + 1];
                     arraySize[j + 1] = temp;
                     await Sleep(delay);
-                    displayNumbers(arraySize);
+                    displayNumbers(arraySize, arraySize[i], temp);
                 }
             }
             console.log("loop");
             await Sleep(delay);
 
-            displayNumbers(arraySize);
+            displayNumbers(arraySize, arraySize[i]);
         }
+        displayGreen();
     });
     selection.addEventListener("click", async () => {
         console.log("click");
@@ -87,7 +103,7 @@ window.onload = function () {
             for (let j = i; j < len; j++) {
                 if (arraySize[j] < arraySize[min]) min = j;
                 await Sleep(delay);
-                displayNumbers(arraySize);
+                displayNumbers(arraySize, arraySize[j], arraySize[min]);
             }
             if (min !== i) {
                 let temp = arraySize[min];
@@ -97,12 +113,6 @@ window.onload = function () {
             await Sleep(delay);
             displayNumbers(arraySize);
         }
+        displayGreen();
     });
 };
-
-console.log("TEST");
-console.log("TEST");
-console.log("TEST");
-console.log("TEST");
-console.log("TEST");
-console.log("TEST");
