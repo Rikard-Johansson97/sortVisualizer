@@ -98,4 +98,16 @@ window.onload = function () {
       displayNumbers(arraySize);
     }
   });
+
+  console.log("a");
+  console.log("a");
+  console.log("a");
+  console.log("a");
+  console.log("a");
+  console.log("a");
+  bubble.addEventListener("click", () => console.log("help"));
+  console.log("a");
+  console.log("a");
+  console.log("a");
+  console.log("a");
 };
