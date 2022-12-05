@@ -99,3 +99,8 @@ window.onload = function () {
         }
     });
 };
+
+console.log("TEST");
+console.log("TEST");
+console.log("TEST");
+console.log("TEST");
