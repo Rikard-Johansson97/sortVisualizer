@@ -1,3 +1,4 @@
+// input Range
 const arraySizeInput = document.getElementById("array-size");
 const speedSizeInput = document.getElementById("speed");
 const arrLabel = document.getElementById("arr-len");
@@ -6,6 +7,7 @@ const speedLabel = document.getElementById("speed-time");
 const ranBtn = document.getElementById("random-btn");
 const bubble = document.getElementById("bubble");
 const selection = document.getElementById("selection");
+const quick = document.getElementById("quick");
 // push stacks here
 stacksContainer = document.querySelector(".stacks-container");
 // array size
@@ -31,6 +33,8 @@ window.onload = function () {
         speedLabel.textContent = e.target.value + "ms";
         delay = e.target.value;
     });
+
+    // displays stacks
     const displayNumbers = (arr, currentIndex, sortedIndex) => {
         stacksContainer.textContent = "";
         arr.forEach((number) => {
@@ -48,12 +52,14 @@ window.onload = function () {
         });
     };
 
+    // randomizes the elements i array.
     const shuffleStacks = (array) => {
         isShuffled = true;
         array.sort(() => Math.random() - 0.5);
         displayNumbers(array);
     };
 
+    // Creates array with unique numbers from 0 - arrayInputValue.
     const createArray = (arrayInputValue) => {
         for (let i = 0; i < arrayInputValue; i++) {
             arraySize.push(i);
@@ -62,10 +68,11 @@ window.onload = function () {
         displayNumbers(arraySize);
     };
 
-    function Sleep(ms, callback) {
+    function Sleep(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
+    // loops trough every element i array and give them the color green.
     const displayGreen = () => {
         sortedStacks = document.querySelectorAll(".sorted");
         console.log(sortedStacks);
@@ -74,8 +81,9 @@ window.onload = function () {
         });
     };
 
-    createArray(arraySizeInput.value);
+    //! SORT
 
+    // BubbleSort event
     bubble.addEventListener("click", async () => {
         console.log("click");
         for (let i = 0; i < arraySize.length; i++) {
@@ -95,6 +103,8 @@ window.onload = function () {
         }
         displayGreen();
     });
+
+    // selectionSort event
     selection.addEventListener("click", async () => {
         console.log("click");
         const len = arraySize.length;
@@ -115,4 +125,83 @@ window.onload = function () {
         }
         displayGreen();
     });
+
+    // QUICK SORT
+
+    function partition(arr, start, end) {
+        // Taking the last element as the pivot
+        const pivotValue = arr[end];
+        let pivotIndex = start;
+        for (let i = start; i < end; i++) {
+            if (arr[i] < pivotValue) {
+                // Swapping elements
+                [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+                // Moving to next element
+                pivotIndex++;
+            }
+        }
+
+        // Putting the pivot value in the middle
+        [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]];
+        return pivotIndex;
+    }
+
+    async function quickSortIterative(arr) {
+        // Creating an array that we'll use as a stack, using the push() and pop() functions
+        stack = [];
+
+        // Adding the entire initial array as an "unsorted subarray"
+        stack.push(0);
+        stack.push(arr.length - 1);
+
+        // There isn't an explicit peek() function
+        // The loop repeats as long as we have unsorted subarrays
+        while (stack[stack.length - 1] >= 0) {
+            // Extracting the top unsorted subarray
+            end = stack.pop();
+            start = stack.pop();
+            pivotIndex = partition(arr, start, end);
+
+            // If there are unsorted elements to the "left" of the pivot,
+            // we add that subarray to the stack so we can sort it later
+            if (pivotIndex - 1 > start) {
+                stack.push(start);
+                stack.push(pivotIndex - 1);
+            }
+
+            // If there are unsorted elements to the "right" of the pivot,
+            // we add that subarray to the stack so we can sort it later
+            if (pivotIndex + 1 < end) {
+                stack.push(pivotIndex + 1);
+                stack.push(end);
+            }
+        }
+    }
+
+    function partition(arr, start, end) {
+        // Taking the last element as the pivot
+        const pivotValue = arr[end];
+        let pivotIndex = start;
+        for (let i = start; i < end; i++) {
+            if (arr[i] < pivotValue) {
+                // Swapping elements
+                [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+                // Moving to next element
+                pivotIndex++;
+            }
+        }
+
+        // Putting the pivot value in the middle
+        [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]];
+        return pivotIndex;
+    }
+
+    quick.addEventListener("click", () => {
+        quickSortIterative(arraySize);
+        displayGreen();
+        displayNumbers(arraySize);
+    });
+
+    //! ON START
+    createArray(arraySizeInput.value);
 };
