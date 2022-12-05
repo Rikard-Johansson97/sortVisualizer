@@ -111,3 +111,8 @@ window.onload = function () {
   console.log("a");
   console.log("a");
 };
+
+console.log("TEST");
+console.log("TEST");
+console.log("TEST");
+console.log("TEST");
