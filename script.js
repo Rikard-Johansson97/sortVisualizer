@@ -19,36 +19,21 @@ let delay = speedSizeInput.value;
 let isShuffled = false;
 console.log(arraySizeInput.value);
 window.onload = function () {
-  ranBtn.addEventListener("click", () => {
-    shuffleStacks(arraySize);
-  });
-
-  // Displays array size
-  arraySizeInput.addEventListener("change", (e) => {
-    arrLabel.textContent = e.target.value;
-    arraySize = [];
-    createArray(e.target.value);
-  });
-  // Displays speed of iteration
-  speedSizeInput.addEventListener("change", (e) => {
-    speedLabel.textContent = e.target.value + "ms";
-    delay = e.target.value;
-  });
-
-  const displayNumbers = (arr) => {
-    stacksContainer.textContent = "";
-    arr.forEach((number) => {
-      stack = document.createElement("p");
-      stacksContainer.appendChild(stack);
-      stack.style.height = `${number}%`;
+    ranBtn.addEventListener("click", () => {
+        shuffleStacks(arraySize);
     });
-  };
 
-  const shuffleStacks = (array) => {
-    isShuffled = true;
-    array.sort(() => Math.random() - 0.5);
-    displayNumbers(array);
-  };
+    // Displays array size
+    arraySizeInput.addEventListener("change", (e) => {
+        arrLabel.textContent = e.target.value;
+        arraySize = [];
+        createArray(e.target.value);
+    });
+    // Displays speed of iteration
+    speedSizeInput.addEventListener("change", (e) => {
+        speedLabel.textContent = e.target.value + "ms";
+        delay = e.target.value;
+    });
 
     // displays stacks
     const displayNumbers = (arr, currentIndex, sortedIndex) => {
@@ -59,11 +44,11 @@ window.onload = function () {
             stack.classList.add("sorted");
             stack.style.height = `${number}%`;
             if (number === sortedIndex) {
-                stack.style.background = "red";
+                stack.style.background = "#e53170";
                 console.log(currentIndex + "aa");
             }
             if (currentIndex === number) {
-                stack.style.background = "white";
+                stack.style.background = "#ff8906";
             }
         });
     };
@@ -84,109 +69,64 @@ window.onload = function () {
         displayNumbers(arraySize);
     };
 
-  const createArray = (arrayInputValue) => {
-    for (let i = 0; i < arrayInputValue; i++) {
-      arraySize.push(i);
-      arraySize.sort(() => Math.random() - 0.5);
+    function Sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
     }
-    displayNumbers(arraySize);
-  };
 
-  function Sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  createArray(arraySizeInput.value);
-
-  bubble.addEventListener("click", async () => {
-    console.log("click");
-    const len = arraySize.length;
-
-    for (let i = 0; i < len; i++) {
-      for (let j = 0; j < len - 1; j++) {
-        if (arraySize[j] > arraySize[j + 1]) {
-          let temp = arraySize[j];
-          arraySize[j] = arraySize[j + 1];
-          arraySize[j + 1] = temp;
-          await Sleep(delay);
-          displayNumbers(arraySize);
+    const mergeSort = async (array) => {
+        if (array.length <= 1) {
+            return array;
         }
-      }
-      console.log("loop");
-      await Sleep(delay);
 
-      displayNumbers(arraySize);
-    }
-  });
-  selection.addEventListener("click", async () => {
-    console.log("click");
-    const len = arraySize.length;
-    for (let i = 0; i < len; i++) {
-      let min = i;
-      for (let j = i; j < len; j++) {
-        if (arraySize[j] < arraySize[min]) min = j;
-        await Sleep(delay);
-        displayNumbers(arraySize);
-      }
-      if (min !== i) {
-        let temp = arraySize[min];
-        arraySize[min] = arraySize[i];
-        arraySize[i] = temp;
-      }
-      await Sleep(delay);
-      displayNumbers(arraySize);
-    }
-  });
+        const mid = Math.floor(array.length / 2);
+        const left = array.slice(0, mid);
+        const right = array.slice(mid);
 
-  const mergeSort = async (array) => {
-    if (array.length <= 1) {
-      return array;
-    }
+        const leftSorted = await mergeSort(left);
+        const rightSorted = await mergeSort(right);
+        return merges(leftSorted, rightSorted);
+    };
 
-    const mid = Math.floor(array.length / 2);
-    const left = array.slice(0, mid);
-    const right = array.slice(mid);
+    const merges = async (left, right) => {
+        const result = [];
 
-    const leftSorted = await mergeSort(left);
-    const rightSorted = await mergeSort(right);
-    return merges(leftSorted, rightSorted);
-  };
+        let leftIndex = 0;
+        let rightIndex = 0;
 
-  const merges = async (left, right) => {
-    const result = [];
+        while (leftIndex < left.length && rightIndex < right.length) {
+            await Sleep(delay);
+            if (left[leftIndex] < right[rightIndex]) {
+                result.push(left[leftIndex]);
 
-    let leftIndex = 0;
-    let rightIndex = 0;
+                leftIndex++;
+            } else {
+                result.push(right[rightIndex]);
+                rightIndex++;
+            }
+            displayNumbers([
+                ...result,
+                ...left.slice(leftIndex),
+                ...right.slice(rightIndex),
+            ]);
+        }
 
-    while (leftIndex < left.length && rightIndex < right.length) {
-      await Sleep(delay);
-      if (left[leftIndex] < right[rightIndex]) {
-        result.push(left[leftIndex]);
+        return [
+            ...result,
+            ...left.slice(leftIndex),
+            ...right.slice(rightIndex),
+        ];
+    };
 
-        leftIndex++;
-      } else {
-        result.push(right[rightIndex]);
-        rightIndex++;
-      }
-      displayNumbers([
-        ...result,
-        ...left.slice(leftIndex),
-        ...right.slice(rightIndex),
-      ]);
-    }
-
-    return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)];
-  };
-
-  merge.addEventListener("click", () => {
-    mergeSort(arraySize);
-  });
+    merge.addEventListener("click", async () => {
+        await mergeSort(arraySize);
+        displayGreen();
+    });
 
     // loops trough every element i array and give them the color green.
     const displayGreen = () => {
         sortedStacks = document.querySelectorAll(".sorted");
         sortedStacks.forEach((item) => {
-            item.style.background = "green";
+            item.style.background = "#7f5af0";
         });
     };
 
