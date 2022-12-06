@@ -7,6 +7,7 @@ const speedLabel = document.getElementById("speed-time");
 const ranBtn = document.getElementById("random-btn");
 const bubble = document.getElementById("bubble");
 const selection = document.getElementById("selection");
+const merge = document.getElementById("merge");
 const quick = document.getElementById("quick");
 // push stacks here
 stacksContainer = document.querySelector(".stacks-container");
@@ -22,7 +23,6 @@ window.onload = function () {
     shuffleStacks(arraySize);
   });
 
-<<<<<<< HEAD
   // Displays array size
   arraySizeInput.addEventListener("change", (e) => {
     arrLabel.textContent = e.target.value;
@@ -49,7 +49,7 @@ window.onload = function () {
     array.sort(() => Math.random() - 0.5);
     displayNumbers(array);
   };
-=======
+
     // displays stacks
     const displayNumbers = (arr, currentIndex, sortedIndex) => {
         stacksContainer.textContent = "";
@@ -83,7 +83,6 @@ window.onload = function () {
         }
         displayNumbers(arraySize);
     };
->>>>>>> quickSort
 
   const createArray = (arrayInputValue) => {
     for (let i = 0; i < arrayInputValue; i++) {
@@ -93,7 +92,6 @@ window.onload = function () {
     displayNumbers(arraySize);
   };
 
-<<<<<<< HEAD
   function Sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -102,8 +100,10 @@ window.onload = function () {
 
   bubble.addEventListener("click", async () => {
     console.log("click");
-    for (let i = 0; i < arraySize.length; i++) {
-      for (let j = 0; j < arraySize.length - 1; j++) {
+    const len = arraySize.length;
+
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len - 1; j++) {
         if (arraySize[j] > arraySize[j + 1]) {
           let temp = arraySize[j];
           arraySize[j] = arraySize[j + 1];
@@ -138,19 +138,50 @@ window.onload = function () {
     }
   });
 
-  console.log("a");
-  console.log("a");
-  console.log("a");
-  console.log("a");
-  console.log("a");
-  console.log("a");
-  bubble.addEventListener("click", () => console.log("help"));
-  console.log("a");
-  console.log("a");
-  console.log("a");
-  console.log("a");
-};
-=======
+  const mergeSort = async (array) => {
+    if (array.length <= 1) {
+      return array;
+    }
+
+    const mid = Math.floor(array.length / 2);
+    const left = array.slice(0, mid);
+    const right = array.slice(mid);
+
+    const leftSorted = await mergeSort(left);
+    const rightSorted = await mergeSort(right);
+    return merges(leftSorted, rightSorted);
+  };
+
+  const merges = async (left, right) => {
+    const result = [];
+
+    let leftIndex = 0;
+    let rightIndex = 0;
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+      await Sleep(delay);
+      if (left[leftIndex] < right[rightIndex]) {
+        result.push(left[leftIndex]);
+
+        leftIndex++;
+      } else {
+        result.push(right[rightIndex]);
+        rightIndex++;
+      }
+      displayNumbers([
+        ...result,
+        ...left.slice(leftIndex),
+        ...right.slice(rightIndex),
+      ]);
+    }
+
+    return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)];
+  };
+
+  merge.addEventListener("click", () => {
+    mergeSort(arraySize);
+  });
+
     // loops trough every element i array and give them the color green.
     const displayGreen = () => {
         sortedStacks = document.querySelectorAll(".sorted");
@@ -203,7 +234,6 @@ window.onload = function () {
         }
         displayGreen();
     });
->>>>>>> quickSort
 
     // QUICK SORT
 
