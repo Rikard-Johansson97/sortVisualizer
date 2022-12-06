@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <title>Document</title>
-    </head>
-    <body>
-        <header>
-            <nav>
-                <button class="btn" id="random-btn">Gen</button>
-                <div>
-                    <label for="array-size" class="label-text">Array</label>
-                    <input
-                        type="range"
-                        min="1"
-                        max="100"
-                        value="50"
-                        id="array-size" />
-                    <span class="label-text" id="arr-len">50</span>
-                </div>
-                <div>
-                    <label for="" class="label-text">Speed</label>
-                    <input
-                        id="speed"
-                        type="range"
-                        value="50"
-                        min="1"
-                        max="100" />
-                    <span class="label-text" id="speed-time">50ms</span>
-                </div>
-                <button class="btn" id="merge">Merge</button>
-                <button class="btn" id="bubble">Bubble</button>
-                <button class="btn" id="quick">Quick</button>
-                <button class="btn" id="selection">Selection Sort</button>
-            </nav>
-        </header>
-        <main>
-            <div class="stacks-container"></div>
-        </main>
-    </body>
-    <script src="/script.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <button class="btn" id="random-btn">Gen</button>
+        <div>
+          <label for="array-size" class="label-text">Array</label>
+          <input type="range" min="1" max="100" value="50" id="array-size" />
+          <span class="label-text" id="arr-len">50</span>
+        </div>
+        <div>
+          <label for="" class="label-text">Speed</label>
+          <input id="speed" type="range" value="50" min="1" max="100" />
+          <span class="label-text" id="speed-time">50ms</span>
+        </div>
+        <button class="btn" id="merge">Merge</button>
+        <button class="btn" id="bubble">Bubble</button>
+        <button class="btn" id="quick">Quick</button>
+        <button class="btn" id="selection">Selection Sort</button>
+      </nav>
+    </header>
+    <main>
+      <div class="stacks-container"></div>
+    </main>
+  </body>
+  <script src="/script.js"></script>
 </html>
