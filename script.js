@@ -133,12 +133,12 @@ window.onload = function () {
     return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)];
   };
 
-  merge.addEventListener("click", async () => {
-    disable(true);
-    await mergeSort(arraySize);
-    displayGreen();
-    disable(false);
-  });
+  //   merge.addEventListener("click", async () => {
+  //     disable(true);
+  //     await mergeSort(arraySize);
+  //     displayGreen();
+  //     disable(false);
+  //   });
 
   // loops trough every element i array and give them the color green.
   const displayGreen = () => {
